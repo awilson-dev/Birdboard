@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectsController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +22,8 @@ Route::get('/', function () {
 
 Route::get('/projects', [ProjectsController::class, 'index']);
 Route::get('/projects/{project}', [ProjectsController::class, 'show']);
-Route::post('/projects', [ProjectsController::class, 'store']);
+Route::post('/projects', [ProjectsController::class, 'store'])->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
