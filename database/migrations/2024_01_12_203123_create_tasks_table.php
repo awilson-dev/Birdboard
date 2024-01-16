@@ -16,6 +16,7 @@ return new class extends Migration
             // $table->foreignId('project_id')->references('id')->on('projects')->cascadeOnDelete();
             $table->unsignedInteger('project_id');
             $table->text('body');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

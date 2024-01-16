@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Testing\Fakes\Fake;
 
@@ -18,7 +19,8 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'body' => fake()->sentence()
+            'body' => fake()->sentence(),
+            'project_id' => Project::factory()
         ];
     }
 }
