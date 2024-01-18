@@ -1,10 +1,9 @@
 // Variables
 @import 'variables';
 
-@tailwind preflight;
-@tailwind components;
-@tailwind utilities;
 @tailwind base;
+@tailwind components;
+@tailwind preflight;
 
 .section {
     @apply px-4;
@@ -18,3 +17,5 @@
 .card {
     @apply bg-white p-5 rounded-lg shadow;
 }
+
+@tailwind utilities;

@@ -22,7 +22,7 @@
 <body class="bg-gray-100">
     <div id="app">
         <nav class="bg-white">
-            <div class="container mx-auto">
+            <div class="container mx-auto px-6">
                 <div class="flex justify-between items-center p-2">
                     <h1>
                         <a class="navbar-brand" href="{{ url('/projects') }}">
@@ -73,7 +73,7 @@
             </div>
         </nav>
 
-        <main class="container mx-auto py-4">
+        <main class="container mx-auto py-4 px-6">
             @yield('content')
         </main>
     </div>

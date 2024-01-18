@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Setup\ProjectFactory;
 use Tests\TestCase;
 
 class ProjectTasksTest extends TestCase
@@ -53,7 +54,10 @@ class ProjectTasksTest extends TestCase
     /** @test */
     public function a_task_can_be_updated()
     {
-        $this->withoutExceptionHandling();
+        // $project = app(ProjectFactory::class)
+        //     ->ownedBy($this->signIn())
+        //     ->withTasks(1)
+        //     ->create();
 
         $this->signIn();
 
@@ -61,7 +65,7 @@ class ProjectTasksTest extends TestCase
 
         $task = $project->addTask('Test task');
 
-        $this->patch($project->path() . '/tasks/' . $task->id, [
+        $this->patch($task->path(), [
             'body' => 'changed',
             'completed' => true
         ]);

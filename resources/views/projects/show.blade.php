@@ -24,11 +24,23 @@
                                 @method('PATCH')
                                 @csrf
 
-                                <div class="flex">
+                                <div class="flex items-center">
                                     <input name="body" value="{{ $task->body }}"
-                                        class="w-full {{ $task->completed ? 'text-gray-400' : '' }}">
-                                    <input name="completed" type="checkbox" onchange="this.form.submit()"
-                                        {{ $task->completed ? 'checked' : '' }}>
+                                        class="w-full -m-3 p-3 mr-5 {{ $task->completed ? 'text-gray-400' : '' }}"
+                                        autocomplete="off">
+
+                                    <div>
+                                        <input name="completed" type="checkbox"
+                                            class="size-6 appearance-none border border-gray-400 rounded-md checked:bg-blue cursor-pointer"
+                                            onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
+
+                                        <svg class="z-10 color-white relative bottom-7 left-1 fill-white -mb-5"
+                                            style="pointer-events: none" height="17" width="15"
+                                            viewBox="0 0 448 412">
+                                            <path
+                                                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </form>
                         </div>
