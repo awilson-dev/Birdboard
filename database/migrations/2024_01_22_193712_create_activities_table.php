@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('project_id');
+            $table->nullableMorphs('subject');
             $table->string('description');
             $table->timestamps();
-
-            // $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
         });
     }
 
