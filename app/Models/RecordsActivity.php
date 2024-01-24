@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+
 trait RecordsActivity
 {
     public $oldAttributes = [];
@@ -38,7 +40,7 @@ trait RecordsActivity
     public function recordActivity($description)
     {
         $this->activity()->create([
-
+            'user_id' => ($this->project ?? $this)->owner_id,
             'description' => $description,
             'changes' => $this->activityChanges(),
             'project_id' => class_basename($this) === 'Project' ? $this->id : $this->project_id
@@ -49,8 +51,8 @@ trait RecordsActivity
     {
         if ($this->wasChanged()) {
             return [
-                'before' => array_diff($this->oldAttributes, $this->getAttributes()),
-                'after' => array_diff($this->getAttributes(), $this->oldAttributes)
+                'before' => Arr::except(array_diff($this->oldAttributes, $this->getAttributes()), ['updated_at']),
+                'after' => Arr::except(array_diff($this->getAttributes(), $this->oldAttributes), ['updated_at'])
             ];
         }
     }

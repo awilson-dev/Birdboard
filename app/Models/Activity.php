@@ -19,4 +19,18 @@ class Activity extends Model
     {
         return $this->morphTo();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function userName()
+    {
+        if ($this->user->name === auth()->user()->name) {
+            return 'You';
+        }
+
+        return $this->user->name;
+    }
 }
