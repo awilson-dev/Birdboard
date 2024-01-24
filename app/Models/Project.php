@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
+    use RecordsActivity;
 
     protected $guarded = [];
-
-    public $old = [];
 
     public function path()
     {
@@ -33,24 +32,6 @@ class Project extends Model
         return $this->tasks()->create(compact('body'));
     }
 
-    public function recordActivity($description)
-    {
-        $this->activity()->create([
-            'description' => $description,
-            'changes' => $this->activityChanges($description)
-        ]);
-    }
-
-    protected function activityChanges($description)
-    {
-        if ($description === 'updated') {
-            return [
-                'before' => array_diff($this->old, $this->getAttributes()),
-                'after' => array_diff($this->getAttributes(), $this->old)
-            ];
-        }
-    }
-    
     public function activity()
     {
         return $this->hasMany(Activity::class)->latest();
