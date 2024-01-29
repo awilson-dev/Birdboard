@@ -19,7 +19,12 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('/projects');
+});
+
+Route::get('/home', function () {
+    return redirect('/projects');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -30,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/projects/{project}/invitations', [ProjectInvitationsController::class, 'store']);
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();

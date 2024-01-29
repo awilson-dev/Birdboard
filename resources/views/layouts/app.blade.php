@@ -31,42 +31,44 @@
 
                     <div>
                         <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto">
+                        <div class="flex">
                             <!-- Authentication Links -->
                             @guest
                                 @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
+                                    <div class="mr-6">
+                                        <a class="hover:underline" href="{{ route('login') }}">Login</a>
+                                    </div>
                                 @endif
 
                                 @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
+                                    <div>
+                                        <a class="hover:underline" href="{{ route('register') }}">Register</a>
+                                    </div>
                                 @endif
                             @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
+                                <div class="dropdown">
+                                    <button class="w-10" onclick="toggleDropdown();">
+                                        <img src="{{ gravatar_url(auth()->user()->email) }}"
+                                            alt="{{ auth()->user()->name }}'s avatar"
+                                            class="rounded-full">
+                                    </button>
 
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
+                                    <div id="dropdown-content" class="dropdown-content">
+                                        <div class="-my-2 -mx-1">
+                                            <p class="mb-1">{{ auth()->user()->name }}</p>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="hidden">
+                                                @csrf
+                                            </form>
+                                        </div>
                                     </div>
-                                </li>
+                                </div>
                             @endguest
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

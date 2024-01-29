@@ -18,4 +18,18 @@
     @apply bg-white p-5 rounded-lg shadow;
 }
 
+.dropdown {}
+
+.dropdown-content {
+    @apply hidden card absolute mt-1 -ml-24 w-36;
+}
+
+.show {
+    display: block;
+}
+
+// .dropdown:hover .dropdown-content {
+//     @apply block;
+// }
+
 @tailwind utilities;
