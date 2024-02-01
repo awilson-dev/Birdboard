@@ -5,6 +5,15 @@
 @tailwind components;
 @tailwind preflight;
 
+@import 'themes/light';
+@import 'themes/dark';
+@import 'themes/pink';
+
+// Default theme
+body {
+    @apply theme-light;
+}
+
 .section {
     @apply px-4;
 }
@@ -31,25 +40,3 @@
 }
 
 @tailwind utilities;
-
-.theme-light {
-    --page-background-color: #f5f6f9;
-    --card-background-color: white;
-    --button-background-color: #47cdff;
-    --header-background-color: white;
-
-    --text-default-color: black;
-
-    --button-shadow-color: #b0eaff;
-}
-
-.theme-dark {
-    --page-background-color: #17181e;
-    --card-background-color: #1f2027;
-    --button-background-color: #59b6f9;
-    --header-background-color: #1f2027;
-
-    --text-default-color: white;
-
-    --button-shadow-color: black;
-}

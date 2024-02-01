@@ -8,8 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'blue': '#47cdff',
-        'blue-light': '#8ae2fe'
+        'accent': 'var(--accent-color)'
       },
       backgroundColor: {
         'page': 'var(--page-background-color)',
@@ -18,10 +17,16 @@ export default {
         'header': 'var(--header-background-color)'
       },
       textColor: {
-        'default': 'var(--text-default-color)'
+        'default': 'var(--text-default-color)',
+        'accent': 'var(--text-accent-color)',
+        'muted': 'var(--text-muted-color)'
       },
       boxShadowColor: {
         'button': 'var(--button-shadow-color)'
+      },
+      borderColor: {
+        'muted': 'var(--border-muted-color)',
+        'accent': 'var(--border-accent-color)'
       }
     },
   },

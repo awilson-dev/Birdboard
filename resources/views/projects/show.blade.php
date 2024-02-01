@@ -3,8 +3,8 @@
 @section('content')
     <header class="flex items-center mb-3 py-4">
         <div class="flex justify-between items-end w-full">
-            <p class="text-default text-sm font-normal">
-                <a href="/projects" class="text-default text-sm font-normal no-underline">My Projects</a> /
+            <p class="text-muted text-sm font-normal">
+                <a href="/projects" class="no-underline">My Projects</a> /
                 {{ $project->title }}
             </p>
 
@@ -26,7 +26,7 @@
         <div class="lg:flex -mx-3">
             <div class="lg:w-3/4 px-3 mb-6">
                 <div class="mb-8">
-                    <h2 class="text-lg text-default font-normal mb-3">Tasks</h2>
+                    <h2 class="text-lg text-muted font-normal mb-3">Tasks</h2>
 
                     @foreach ($project->tasks as $task)
                         <div class="card mb-3">
@@ -36,12 +36,12 @@
 
                                 <div class="flex items-center">
                                     <input name="body" value="{{ $task->body }}"
-                                        class="bg-card text-default w-full -m-3 p-3 mr-5 {{ $task->completed ? 'text-default' : '' }}"
+                                        class="bg-card w-full -m-3 p-3 mr-5 {{ $task->completed ? 'text-muted line-through' : 'text-default' }}"
                                         autocomplete="off">
 
                                     <div>
                                         <input name="completed" type="checkbox"
-                                            class="size-6 appearance-none border border-gray-400 rounded-md checked:bg-blue cursor-pointer"
+                                            class="size-6 appearance-none border border-muted rounded-md checked:bg-button cursor-pointer"
                                             onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
 
                                         <svg class="z-10 color-white relative bottom-7 left-1 fill-white -mb-5"
@@ -66,7 +66,7 @@
                 </div>
 
                 <div>
-                    <h2 class="text-lg text-default font-normal mb-3">General Notes</h2>
+                    <h2 class="text-lg text-muted font-normal mb-3">General Notes</h2>
 
                     <form method="POST" action="{{ $project->path() }}">
                         @method('PATCH')
