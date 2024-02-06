@@ -46,28 +46,30 @@
 
                     <div>
                         <!-- Right Side Of Navbar -->
-                        <div class="flex">
+                        <div class="flex items-center">
+                            <theme-switcher></theme-switcher>
+
                             <!-- Authentication Links -->
                             @guest
                                 @if (Route::has('login'))
-                                    <div class="mr-6">
+                                    <div class="mr-6 mb-1">
                                         <a class="text-default hover:underline" href="{{ route('login') }}">Login</a>
                                     </div>
                                 @endif
 
                                 @if (Route::has('register'))
-                                    <div>
+                                    <div class="mb-1">
                                         <a class="text-default hover:underline" href="{{ route('register') }}">Register</a>
                                     </div>
                                 @endif
                             @else
                                 <div class="dropdown">
-                                    <button class="w-10" onclick="toggleDropdown();">
+                                    <button class="w-10" onclick="toggleDropdown('profile');">
                                         <img src="{{ gravatar_url(auth()->user()->email) }}"
                                             alt="{{ auth()->user()->name }}'s avatar" class="rounded-full">
                                     </button>
 
-                                    <div id="dropdown-content" class="dropdown-content">
+                                    <div id="profile-dropdown-content" class="dropdown-content -ml-24">
                                         <div class="-my-2 -mx-1">
                                             <p class="mb-1">{{ auth()->user()->name }}</p>
 

@@ -44,7 +44,7 @@
                                             class="size-6 appearance-none border border-muted rounded-md checked:bg-button cursor-pointer"
                                             onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
 
-                                        <svg class="z-10 color-white relative bottom-7 left-1 fill-white -mb-5"
+                                        <svg class="z-10 color-white relative bottom-7 left-1 -mb-5 {{ $task->completed ? 'fill-white' : 'fill-none' }}"
                                             style="pointer-events: none" height="17" width="15"
                                             viewBox="0 0 448 412">
                                             <path
@@ -60,7 +60,8 @@
                         <form action="{{ $project->path() . '/tasks' }}" method="POST">
                             @csrf
 
-                            <input placeholder="Add a new task..." class="bg-card text-default w-full -m-3 p-3" name="body">
+                            <input placeholder="Add a new task..." class="bg-card text-default w-full -m-3 p-3"
+                                name="body">
                         </form>
                     </div>
                 </div>
@@ -86,7 +87,7 @@
                 @include('projects.card')
                 @include('projects.activity.card')
 
-                @can ('manage', $project)
+                @can('manage', $project)
                     @include('projects.invite')
                 @endcan
             </div>

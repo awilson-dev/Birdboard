@@ -44,7 +44,7 @@
                     <input class="form-check-input" type="checkbox" name="remember" id="remember"
                         {{ old('remember') ? 'checked' : '' }}>
 
-                    <label class="text-sm" for="remember">Remember Me</label>
+                    <label class="text-sm ml-2" for="remember">Remember Me</label>
                 </div>
             </div>
 
