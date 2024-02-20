@@ -1,40 +1,13 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 import './bootstrap';
 import { createApp } from 'vue';
-
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
 
 const app = createApp({});
 
 import ThemeSwitcher from './components/ThemeSwitcher.vue';
 app.component('theme-switcher', ThemeSwitcher);
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-/**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
- */
+import NewProjectModal from './components/NewProjectModal.vue';
+app.component('new-project-modal', NewProjectModal);
 
 app.mount('#app');
 
@@ -44,7 +17,6 @@ window.toggleDropdown = function toggleDropdown(name) {
     var dropdown = document.getElementById(name + "-dropdown-content");
 
     if (dropdown.classList.contains("show")) {
-        // dropdown.classList.remove("show");
         hideAllDropdowns();
     } else {
         hideAllDropdowns();
@@ -53,35 +25,19 @@ window.toggleDropdown = function toggleDropdown(name) {
 }
 
 function hideAllDropdowns() {
-    // document.getElementById("-dropdown-content").classList.remove("show");
-
     let elements = document.getElementsByClassName('dropdown-content');
     for (var i = 0; i < elements.length; i++) {
         elements[i].classList.remove("show");
     }
 }
 
-function hideAllDropdownsExcept(id) {
-    let elements = document.getElementsByClassName('dropdown-content');
-    for (var i = 0; i < elements.length; i++) {
-        if (elements[i].id == id) {
-            elements[i].classList.remove("show");
-        }
-    }
-}
-
 window.onclick = function (event) {
-    // if (!document.getElementsByClassName('dropdown')[0].contains(event.target)) {
-    //     hideDropdowns();
-    // }
-
     var hideAll = true;
 
     let elements = document.getElementsByClassName('dropdown');
     for (var i = 0; i < elements.length; i++) {
         if (elements[i].contains(event.target)) {
             hideAll = false;
-            // hideAllDropdownsExcept(elements[i].getElementsByClassName('dropdown-content')[0].id);
         }
 
         console.log(i);
@@ -90,6 +46,67 @@ window.onclick = function (event) {
     if (hideAll) {
         hideAllDropdowns();
     }
+
+    // MARK: Modals
+
+    hideAll = true;
+
+    elements = document.getElementsByClassName('modal');
+    for (var i = 0; i < elements.length; i++) {
+        if (
+            elements[i].contains(event.target) ||
+            event.target.classList.contains('button') ||
+            event.target instanceof HTMLButtonElement ||
+            event.target instanceof HTMLAnchorElement
+        ) {
+            hideAll = false;
+        }
+    }
+
+    if (hideAll) {
+        hideAllModals();
+    }
 }
 
 window.onscroll = hideAllDropdowns;
+
+window.showModal = function showModal(name) {
+    document.body.classList.add('prevent-scroll');
+
+    var modal = document.getElementById(name + "-modal");
+
+    modal.classList.remove('hidden');
+
+    modal.animate([
+        { opacity: 0 },
+        { opacity: 100 }
+    ], {
+        duration: 200,
+        iterations: 1
+    });
+}
+
+window.closeModal = function closeModal(name) {
+    document.body.classList.remove('prevent-scroll');
+
+    var modal = document.getElementById(name + "-modal");
+
+    modal.animate([
+        { opacity: 100 },
+        { opacity: 0 }
+    ], {
+        duration: 200,
+        iterations: 1
+    });
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 200);
+}
+
+function hideAllModals() {
+    let elements = document.getElementsByClassName('modal-background');
+    for (var i = 0; i < elements.length; i++) {
+        closeModal(elements[i].id.replace('-modal', ''))
+    }
+}

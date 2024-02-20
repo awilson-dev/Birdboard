@@ -44,7 +44,7 @@
                                             class="size-6 appearance-none border border-muted rounded-md checked:bg-button cursor-pointer"
                                             onchange="this.form.submit()" {{ $task->completed ? 'checked' : '' }}>
 
-                                        <svg class="z-10 color-white relative bottom-7 left-1 -mb-5 {{ $task->completed ? 'fill-white' : 'fill-none' }}"
+                                        <svg class="color-white relative bottom-7 left-1 -mb-5 {{ $task->completed ? 'fill-white' : 'fill-none' }}"
                                             style="pointer-events: none" height="17" width="15"
                                             viewBox="0 0 448 412">
                                             <path

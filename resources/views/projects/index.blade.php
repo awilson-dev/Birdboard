@@ -5,7 +5,8 @@
         <div class="flex justify-between items-end w-full">
             <h2 class="text-muted text-sm font-normal">My Projects</h2>
 
-            <a href="/projects/create" class="button">New Project</a>
+            {{-- <a href="/projects/create" class="button">New Project</a> --}}
+            <button class="button" onclick="showModal('new-project')">New Project</button>
         </div>
     </header>
 
@@ -18,4 +19,14 @@
             <div>No projects yet.</div>
         @endforelse
     </main>
+
+    {{-- @include('projects.modal', [
+        'id' => 'new-project',
+        'file' => 'projects.create',
+    ]) --}}
+
+    {{-- @include('projects.new-project-modal') --}}
+    <x-modal id="new-project" class="p-10 lg:w-1/2 text-default">
+        <new-project-modal></new-project-modal>
+    </x-modal>
 @endsection
