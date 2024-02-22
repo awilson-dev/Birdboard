@@ -9,6 +9,9 @@ app.component('theme-switcher', ThemeSwitcher);
 import NewProjectModal from './components/NewProjectModal.vue';
 app.component('new-project-modal', NewProjectModal);
 
+import EditProjectModal from './components/EditProjectModal.vue';
+app.component('edit-project-modal', EditProjectModal);
+
 app.mount('#app');
 
 app.config.globalProperties.window = window

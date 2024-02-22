@@ -65,4 +65,12 @@ body {
     overflow: hidden;
 }
 
+.user-profile {
+    @apply hidden absolute mt-2 pointer-events-none;
+}
+
+.user-gravatar:hover + .user-profile {
+    @apply block;
+}
+
 @tailwind utilities;

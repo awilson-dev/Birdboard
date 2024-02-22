@@ -10,14 +10,13 @@
 
             <div class="flex items-center">
                 @foreach ($project->members as $member)
-                    <img src="{{ gravatar_url($member->email) }}" alt="{{ $member->name }}'s avatar"
-                        class="rounded-full w-8 mr-2">
+                    @include('projects.user-gravatar', ['user' => $member])
                 @endforeach
 
-                <img src="{{ gravatar_url($project->owner->email) }}" alt="{{ $project->owner->name }}'s avatar"
-                    class="rounded-full w-8 mr-2">
+                @include('projects.user-gravatar', ['user' => $project->owner])
 
-                <a href="{{ $project->path() }}/edit" class="button ml-4">Edit Project</a>
+                {{-- <a href="{{ $project->path() }}/edit" class="button ml-4">Edit Project</a> --}}
+                <button class="button ml-4" onclick="showModal('edit-project')">Edit Project</button>
             </div>
         </div>
     </header>
@@ -93,4 +92,9 @@
             </div>
         </div>
     </main>
+
+    <x-modal id="edit-project" class="p-10 lg:w-1/2 text-default">
+        <edit-project-modal
+            project='{"title":"{{ $project->title }}", "description":"{{ $project->description }}", "id":"{{ $project->id }}"}'></edit-project-modal>
+    </x-modal>
 @endsection

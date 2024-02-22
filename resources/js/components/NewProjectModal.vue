@@ -1,5 +1,4 @@
 <template>
-    <!-- <x-modal id="new-project" class="p-10 lg:w-1/2 text-default"> -->
     <form @submit.prevent="submit">
         <h1 class="font-normal mb-16 text-center text-2xl">Let's Start Something New</h1>
 
@@ -30,10 +29,10 @@
                 <div class="mb-2">
                     <label class="text-sm block mb-2">Need Some Tasks?</label>
                     <input type="text" class="bg-transparent border border-muted rounded mb-2 p-2 text-xs w-full"
-                        placeholder="Task 1" v-for="task in form.tasks" v-model="task.value">
+                        placeholder="Task 1" v-for="task in form.tasks" v-model="task.body">
                 </div>
 
-                <button class="inline-flex items-center text-xs text-muted" @click="addTask">
+                <button type="button" class="inline-flex items-center text-xs text-muted" @click="addTask">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                         class="mr-2 fill-current">
                         <g fill="none" fill-rule="evenodd" opacity=".75">
@@ -50,12 +49,11 @@
         </div>
 
         <footer class="mt-auto flex justify-end">
-            <button class="button mr-4 is-outlined" onclick="closeModal('new-project')">Cancel</button>
+            <button type="button" class="button mr-4 is-outlined" onclick="closeModal('new-project')">Cancel</button>
 
-            <button class="button" onclick="">Create Project</button>
+            <button type="submit" class="button">Create Project</button>
         </footer>
     </form>
-    <!-- </x-modal> -->
 </template>
 
 <script>
@@ -66,7 +64,7 @@ export default {
                 title: '',
                 description: '',
                 tasks: [
-                    { value: '' }
+                    { body: '' }
                 ]
             },
 
@@ -76,13 +74,13 @@ export default {
 
     methods: {
         addTask() {
-            this.form.tasks.push({ value: '' });
+            this.form.tasks.push({ body: '' });
         },
 
         async submit() {
             try {
                 let response = await axios.post('/projects', this.form);
-                
+
                 location = response.data.message;
             } catch (error) {
                 this.errors = error.response.data.errors;
