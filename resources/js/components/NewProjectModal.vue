@@ -8,20 +8,21 @@
                     <label for="title" class="text-sm block mb-2">Title</label>
 
                     <input type="text" class="bg-transparent border rounded p-2 text-xs w-full"
-                        :class="errors.title ? 'border-error' : 'border-muted'" name="title" placeholder="Title" required
-                        v-model="form.title">
+                        :class="form.errors.title ? 'border-error' : 'border-muted'" name="title" placeholder="Title"
+                        required v-model="form.title">
 
-                    <span class="text-xs italic text-error" v-if="errors.title" v-text="errors.title[0]"></span>
+                    <span class="text-xs italic text-error" v-if="form.errors.title" v-text="form.errors.title[0]"></span>
                 </div>
 
                 <div class="mb-4">
                     <label for="description" class="text-sm block mb-2">Description</label>
 
                     <textarea name="description" class="bg-transparent border rounded p-2 text-xs w-full"
-                        :class="errors.description ? 'border-error' : 'border-muted'" style="min-height: 150px" required
-                        v-model="form.description"></textarea>
+                        :class="form.errors.description ? 'border-error' : 'border-muted'" style="min-height: 150px"
+                        required v-model="form.description"></textarea>
 
-                    <span class="text-xs italic text-error" v-if="errors.description" v-text="errors.description[0]"></span>
+                    <span class="text-xs italic text-error" v-if="form.errors.description"
+                        v-text="form.errors.description[0]"></span>
                 </div>
             </div>
 
@@ -29,7 +30,7 @@
                 <div class="mb-2">
                     <label class="text-sm block mb-2">Need Some Tasks?</label>
                     <input type="text" class="bg-transparent border border-muted rounded mb-2 p-2 text-xs w-full"
-                        placeholder="Task 1" v-for="task in form.tasks" v-model="task.body">
+                        placeholder="New Task" v-for="task in form.tasks" v-model="task.body">
                 </div>
 
                 <button type="button" class="inline-flex items-center text-xs text-muted" @click="addTask">
@@ -57,33 +58,70 @@
 </template>
 
 <script>
+import BirdboardForm from './BirdboardForm';
+
+var submitting = false;
+
 export default {
     data() {
         return {
-            form: {
+            form: new BirdboardForm({
                 title: '',
                 description: '',
                 tasks: [
                     { body: '' }
                 ]
-            },
+            }),
 
-            errors: {}
+            // errors: {}
         };
     },
 
     methods: {
         addTask() {
+            // this.form.tasks.push({ body: '' });
+
+            for (let i = 0; i < this.form.tasks.length; i++) {
+                if (!this.form.tasks[i].body) {
+                    return;
+                }
+            }
+
             this.form.tasks.push({ body: '' });
         },
 
         async submit() {
-            try {
-                let response = await axios.post('/projects', this.form);
+            if (!submitting) {
+                submitting = true;
 
-                location = response.data.message;
-            } catch (error) {
-                this.errors = error.response.data.errors;
+                console.log(this.form);
+
+                // for (let i = this.form.tasks.length - 1; i >= 0; i--) {
+                //     if (!this.form.tasks[i].body) {
+                //         this.form.tasks.splice(i, 1);
+                //     }
+                // }
+
+                // this.form.submit('/projects')
+                //     .then(response => location = response.data.message);
+
+                this.form.post('/projects')
+                    .catch(error => {
+                        submitting = false;
+                    })
+                    .then(response => {
+                        location = response.data.message;
+                    });
+
+                // try {
+                //     submitted = true;
+
+                //     let response = await axios.post('/projects', this.form);
+
+                //     location = response.data.message;
+                // } catch (error) {
+                //     this.errors = error.response.data.errors;
+                // }
             }
         }
     }
