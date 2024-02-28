@@ -12,6 +12,13 @@ app.component('new-project-modal', NewProjectModal);
 import EditProjectModal from './components/EditProjectModal.vue';
 app.component('edit-project-modal', EditProjectModal);
 
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../tailwind.config.js';
+
+const fullConfig = resolveConfig(tailwindConfig);
+
+// import pageBackground from '../sass/_variables.scss';
+
 app.mount('#app');
 
 app.config.globalProperties.window = window
@@ -42,8 +49,6 @@ window.onclick = function (event) {
         if (elements[i].contains(event.target)) {
             hideAll = false;
         }
-
-        console.log(i);
     }
 
     if (hideAll) {
@@ -69,6 +74,10 @@ window.onclick = function (event) {
     if (hideAll) {
         hideAllModals();
     }
+
+    // MARK: Header
+
+    updateHeaderColor();
 }
 
 window.onscroll = hideAllDropdowns;
@@ -113,3 +122,12 @@ function hideAllModals() {
         closeModal(elements[i].id.replace('-modal', ''))
     }
 }
+
+function updateHeaderColor() {
+    let backgroundColor = getComputedStyle(document.body).getPropertyValue('--page-header-color');
+
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", backgroundColor);
+}
+
+window.onload = updateHeaderColor;
+window.onchange = updateHeaderColor;

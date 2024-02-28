@@ -19,15 +19,15 @@ class BirdboardForm {
     }
 
     post(endpoint) {
-        this.submit(endpoint);
+        return this.submit(endpoint);
     }
 
     patch(endpoint) {
-        this.submit(endpoint, 'patch');
+        return this.submit(endpoint, 'patch');
     }
 
     delete(endpoint) {
-        this.submit(endpoint, 'delete');
+        return this.submit(endpoint, 'delete');
     }
 
     submit(endpoint, requestType = 'post') {

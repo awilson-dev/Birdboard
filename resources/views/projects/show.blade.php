@@ -13,7 +13,7 @@
                     @include('projects.user-gravatar', ['user' => $member])
                 @endforeach
 
-                @include('projects.user-gravatar', ['user' => $project->owner])
+                @include('projects.user-gravatar', ['user' => $project->owner, 'role' => 'owner'])
 
                 {{-- <a href="{{ $project->path() }}/edit" class="button ml-4">Edit Project</a> --}}
                 <button class="button ml-4" onclick="showModal('edit-project')">Edit Project</button>

@@ -71,7 +71,7 @@ export default {
                 tasks: [
                     { body: '' }
                 ]
-            }),
+            })
 
             // errors: {}
         };
@@ -93,8 +93,6 @@ export default {
         async submit() {
             if (!submitting) {
                 submitting = true;
-
-                console.log(this.form);
 
                 // for (let i = this.form.tasks.length - 1; i >= 0; i--) {
                 //     if (!this.form.tasks[i].body) {

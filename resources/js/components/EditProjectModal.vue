@@ -7,20 +7,20 @@
                 <label for="title" class="text-sm block mb-2">Title</label>
 
                 <input type="text" class="bg-transparent border rounded p-2 text-xs w-full"
-                    :class="errors.title ? 'border-error' : 'border-muted'" name="title" placeholder="Title" required
+                    :class="form.errors.title ? 'border-error' : 'border-muted'" name="title" placeholder="Title" required
                     v-model="form.title">
 
-                <span class="text-xs italic text-error" v-if="errors.title" v-text="errors.title[0]"></span>
+                <span class="text-xs italic text-error" v-if="form.errors.title" v-text="form.errors.title[0]"></span>
             </div>
 
             <div class="mb-4">
                 <label for="description" class="text-sm block mb-2">Description</label>
 
                 <textarea name="description" class="bg-transparent border rounded p-2 text-xs w-full"
-                    :class="errors.description ? 'border-error' : 'border-muted'" style="min-height: 150px" required
+                    :class="form.errors.description ? 'border-error' : 'border-muted'" style="min-height: 150px" required
                     v-model="form.description"></textarea>
 
-                <span class="text-xs italic text-error" v-if="errors.description" v-text="errors.description[0]"></span>
+                <span class="text-xs italic text-error" v-if="form.errors.description" v-text="form.errors.description[0]"></span>
             </div>
         </div>
 
@@ -33,26 +33,48 @@
 </template>
 
 <script>
+import BirdboardForm from './BirdboardForm';
+
+var submitting = false;
+
 export default {
     data() {
         return {
-            form: {
-                title: '',
-                description: ''
-            },
+            // form: {
+            //     title: '',
+            //     description: ''
+            // },
 
-            errors: {}
+            // errors: {}
+
+            form: new BirdboardForm({
+                title: '',
+                description: '',
+                tasks: []
+            })
         };
     },
 
     methods: {
         async submit() {
-            try {
-                let response = await axios.patch("projects/23", this.form);
+            // try {
+            //     let response = await axios.patch("projects/23", this.form);
 
-                location = response.data.message;
-            } catch (error) {
-                this.errors = error.response.data.errors;
+            //     location = response.data.message;
+            // } catch (error) {
+            //     this.errors = error.response.data.errors;
+            // }
+
+            if (!submitting) {
+                submitting = true;
+
+                this.form.patch('/projects/' + this.projectId)
+                    .catch(error => {
+                        submitting = false;
+                    })
+                    .then(response => {
+                        location = response.data.message;
+                    });
             }
         }
     },

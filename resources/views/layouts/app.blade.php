@@ -16,17 +16,19 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <meta name="theme-color" content="#fff">
 </head>
 
 <body class="theme-light bg-page">
     <div id="app">
         <nav class="bg-header sticky top-0 left-0 right-0 shadow">
             <div class="container mx-auto px-6">
-                <div class="flex justify-between items-center p-2">
+                <div class="lg:flex justify-between items-center p-2">
                     <h1>
                         <a class="navbar-brand" href="{{ url('/projects') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="291" height="45" viewBox="0 0 291 45"
-                                class="text-default">
+                                class="text-default w-52 md:w-60 lg:w-72">
                                 <g fill="none" fill-rule="evenodd">
                                     <g class="fill-current">
                                         <path
@@ -47,7 +49,7 @@
                     <div>
                         <!-- Right Side Of Navbar -->
                         <div class="flex items-center">
-                            <theme-switcher></theme-switcher>
+                            <theme-switcher class="mr-auto"></theme-switcher>
 
                             <!-- Authentication Links -->
                             @guest
@@ -63,7 +65,7 @@
                                     </div>
                                 @endif
                             @else
-                                <div class="dropdown">
+                                <div class="dropdown ml-auto">
                                     <button class="w-10" onclick="toggleDropdown('profile');">
                                         <img src="{{ gravatar_url(auth()->user()->email) }}"
                                             alt="{{ auth()->user()->name }}'s avatar" class="rounded-full">

@@ -8,10 +8,12 @@
 @import 'themes/light';
 @import 'themes/dark';
 @import 'themes/pink';
+@import 'themes/purple';
 
 // Default theme
 body {
     @apply theme-light;
+    --page-header-color: var(--page-background-color);
 }
 
 .section {

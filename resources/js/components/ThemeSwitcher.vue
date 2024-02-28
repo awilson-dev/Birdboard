@@ -31,7 +31,8 @@ export default {
             themes: {
                 'theme-light': ['Light', '#f5f6f9'],
                 'theme-dark': ['Dark', '#17181e'],
-                'theme-pink': ['Pink', '#e46887']
+                'theme-pink': ['Pink', '#e46887'],
+                'theme-purple': ['Purple', '#c469e8']
             },
             selectedTheme: 'theme-light'
         }
