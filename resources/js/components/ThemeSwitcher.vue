@@ -33,7 +33,8 @@ export default {
                 'theme-dark': ['Dark', '#17181e'],
                 'theme-pink': ['Pink', '#e46887'],
                 'theme-purple': ['Purple', '#c469e8'],
-                'theme-green': ['Green', '#4fd527']
+                'theme-green': ['Green', '#4fd527'],
+                'theme-ocean': ['Ocean', '#046465']
             },
             selectedTheme: 'theme-light'
         }
