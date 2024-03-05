@@ -20,7 +20,7 @@ class ProjectInvitationsController extends Controller
 
     public function destroy(Project $project, User $user)
     {
-        $this->authorize('manage', $project);
+        $this->authorize('update', $project);
 
         $project->remove($user);
 

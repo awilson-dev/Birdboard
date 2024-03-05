@@ -32,7 +32,8 @@ export default {
                 'theme-light': ['Light', '#f5f6f9'],
                 'theme-dark': ['Dark', '#17181e'],
                 'theme-pink': ['Pink', '#e46887'],
-                'theme-purple': ['Purple', '#c469e8']
+                'theme-purple': ['Purple', '#c469e8'],
+                'theme-green': ['Green', '#4fd527']
             },
             selectedTheme: 'theme-light'
         }
