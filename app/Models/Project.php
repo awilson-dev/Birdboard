@@ -47,6 +47,22 @@ class Project extends Model
         return $this->members()->attach($user);
     }
 
+    // public function remove(User $user)
+    // {
+    //     return $this->members()->detach($user);
+    // }
+
+    public function remove(User $user)
+    {
+        // Remove the user from the members relationship
+        $this->members()->detach($user);
+
+        // Additional step: refresh the members relationship
+        $this->load('members');
+
+        return $this;
+    }
+
     public function members()
     {
         return $this->belongsToMany(User::class, 'project_members')->withTimestamps();

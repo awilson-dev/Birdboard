@@ -17,4 +17,14 @@ class ProjectInvitationsController extends Controller
 
         return redirect($project->path());
     }
+
+    public function destroy(Project $project, User $user)
+    {
+        // $user = User::whereEmail(request('email'))->firstOrFail();
+
+        $project->remove($user);
+
+        // return redirect($project->path());
+        return response()->json(['message' => 'User removed successfully']);
+    }
 }

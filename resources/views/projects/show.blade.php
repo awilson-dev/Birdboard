@@ -11,6 +11,13 @@
             <div class="flex items-center">
                 @foreach ($project->members as $member)
                     @include('projects.user-gravatar', ['user' => $member])
+
+                    {{-- <form method="POST" action="{{ $project->path() }}/invitations/{{ $member->id }}">
+                        @csrf
+                        @method('delete')
+
+                        <button type="submit" onclick="console.log('{{ $project->path() }}/invitations/{{ $member->id }}');">Delete</button>
+                    </form> --}}
                 @endforeach
 
                 @include('projects.user-gravatar', ['user' => $project->owner, 'role' => 'owner'])
@@ -95,6 +102,6 @@
 
     <x-modal id="edit-project" class="p-10 lg:w-1/2 text-default">
         <edit-project-modal
-            project='{"title":"{{ $project->title }}", "description":"{{ $project->description }}", "id":"{{ $project->id }}"}'></edit-project-modal>
+            project='{"title":"{{ $project->title }}", "description":"{{ $project->description }}", "id":"{{ $project->id }}", "authIsOwner":"{{ $project->owner->id == auth()->id() }}", "members":{{ $project->members }}}'></edit-project-modal>
     </x-modal>
 @endsection

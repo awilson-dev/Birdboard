@@ -44,9 +44,23 @@ class ProjectTest extends TestCase
     public function it_can_invite_a_user()
     {
         $project = Project::factory()->create();
-        
+
         $project->invite($user = User::factory()->create());
 
         $this->assertTrue($project->members->contains($user));
+    }
+
+    /** @test */
+    public function it_can_remove_a_user()
+    {
+        $project = Project::factory()->create();
+
+        $project->invite($user = User::factory()->create());
+
+        $this->assertTrue($project->members->contains($user));
+
+        $project->remove($user);
+
+        $this->assertFalse($project->members->contains($user));
     }
 }

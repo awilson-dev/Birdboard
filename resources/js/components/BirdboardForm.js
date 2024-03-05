@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class BirdboardForm {
     constructor(data) {
         this.originalData = JSON.parse(JSON.stringify(data));

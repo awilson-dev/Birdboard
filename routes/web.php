@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/projects/{project}/tasks/{task}', [ProjectTasksController::class, 'update']);
 
     Route::post('/projects/{project}/invitations', [ProjectInvitationsController::class, 'store']);
+    Route::delete('/projects/{project}/invitations/{user}', [ProjectInvitationsController::class, 'destroy']);
 
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

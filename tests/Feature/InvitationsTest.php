@@ -47,6 +47,58 @@ class InvitationsTest extends TestCase
         $this->assertTrue($project->members->contains($userToInvite));
     }
 
+    // /** @test */
+    // public function a_project_owner_can_remove_a_user()
+    // {
+    //     $this->withoutExceptionHandling();
+
+    //     $project = Project::factory()->create();
+
+    //     $userToInvite = User::factory()->create();
+
+    //     $this->actingAs($project->owner)
+    //         ->post($project->path() . '/invitations', [
+    //             'email' => $userToInvite->email
+    //         ]);
+
+    //     dump($project->members->toArray());
+
+    //     $this->assertTrue($project->members->contains($userToInvite));
+
+    //     $this->actingAs($project->owner)
+    //         ->delete($project->path() . '/invitations/' . $userToInvite->id)
+    //         ->assertRedirect($project->path());
+
+    //     dump($project->members->toArray());
+
+    //     $this->assertFalse($project->members->contains($userToInvite));
+    // }
+
+    /** @test */
+    public function a_project_owner_can_remove_a_user()
+    {
+        $this->withoutExceptionHandling();
+
+        $project = Project::factory()->create();
+        $userToInvite = User::factory()->create();
+
+        // Inviting the user
+        $this->actingAs($project->owner)
+            ->post($project->path() . '/invitations', [
+                'email' => $userToInvite->email
+            ]);
+
+        // Asserting that the user is a member
+        $this->assertTrue($project->members->contains($userToInvite));
+
+        // Removing the user
+        $this->actingAs($project->owner)
+            ->delete($project->path() . '/invitations/' . $userToInvite->id);
+
+        // Asserting that the user is no longer a member
+        $this->assertFalse($project->fresh()->members->contains($userToInvite));
+    }
+
     /** @test */
     public function the_email_address_must_be_associated_with_a_valid_birdboard_account()
     {
