@@ -50,6 +50,8 @@
         </div>
 
         <footer class="mt-auto flex justify-end">
+            <button type="button" class="button mr-auto warning" @click="this.leaveProject();" v-if="!this.authIsOwner">Leave Project</button>
+
             <button type="button" class="button mr-4 is-outlined" @click="window.closeModal('edit-project')">Cancel</button>
 
             <button type="submit" class="button">Update Project</button>
@@ -66,13 +68,6 @@ var submitting = false;
 export default {
     data() {
         return {
-            // form: {
-            //     title: '',
-            //     description: ''
-            // },
-
-            // errors: {}
-
             form: new BirdboardForm({
                 title: '',
                 description: '',
@@ -106,6 +101,18 @@ export default {
             }
         },
 
+        leaveProject() {
+            axios.delete('/projects/' + this.projectId + '/invitations/' + this.authId)
+                .catch(error => {
+                    console.error(error.response.data.message);
+                })
+                .then(response => {
+                    console.log(response);
+                });
+
+            location = '/projects';
+        },
+
         removeMember(member) {
             this.membersToRemove.push(member.id);
             this.$forceUpdate();
@@ -132,6 +139,7 @@ export default {
         this.form.title = project.title;
         this.form.description = project.description;
 
+        this.authId = project.authId;
         this.authIsOwner = project.authIsOwner;
 
         this.projectMembers = project.members;

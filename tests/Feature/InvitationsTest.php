@@ -47,56 +47,44 @@ class InvitationsTest extends TestCase
         $this->assertTrue($project->members->contains($userToInvite));
     }
 
-    // /** @test */
-    // public function a_project_owner_can_remove_a_user()
-    // {
-    //     $this->withoutExceptionHandling();
-
-    //     $project = Project::factory()->create();
-
-    //     $userToInvite = User::factory()->create();
-
-    //     $this->actingAs($project->owner)
-    //         ->post($project->path() . '/invitations', [
-    //             'email' => $userToInvite->email
-    //         ]);
-
-    //     dump($project->members->toArray());
-
-    //     $this->assertTrue($project->members->contains($userToInvite));
-
-    //     $this->actingAs($project->owner)
-    //         ->delete($project->path() . '/invitations/' . $userToInvite->id)
-    //         ->assertRedirect($project->path());
-
-    //     dump($project->members->toArray());
-
-    //     $this->assertFalse($project->members->contains($userToInvite));
-    // }
-
     /** @test */
     public function a_project_owner_can_remove_a_user()
     {
-        $this->withoutExceptionHandling();
-
         $project = Project::factory()->create();
         $userToInvite = User::factory()->create();
 
-        // Inviting the user
         $this->actingAs($project->owner)
             ->post($project->path() . '/invitations', [
                 'email' => $userToInvite->email
             ]);
 
-        // Asserting that the user is a member
         $this->assertTrue($project->members->contains($userToInvite));
 
-        // Removing the user
         $this->actingAs($project->owner)
+            ->delete($project->path() . '/invitations/' . $userToInvite->id, [
+                'email' => $userToInvite->email
+            ]);
+
+        $this->assertFalse($project->fresh()->members->contains($userToInvite));
+    }
+
+    /** @test */
+    public function non_owners_may_not_remove_users()
+    {
+        $project = Project::factory()->create();
+        $userToInvite = User::factory()->create();
+
+        $this->actingAs($project->owner)
+            ->post($project->path() . '/invitations', [
+                'email' => $userToInvite->email
+            ]);
+
+        $this->assertTrue($project->members->contains($userToInvite));
+
+        $this->actingAs(User::factory()->create())
             ->delete($project->path() . '/invitations/' . $userToInvite->id);
 
-        // Asserting that the user is no longer a member
-        $this->assertFalse($project->fresh()->members->contains($userToInvite));
+        $this->assertTrue($project->fresh()->members->contains($userToInvite));
     }
 
     /** @test */
