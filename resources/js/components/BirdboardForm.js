@@ -44,9 +44,6 @@ class BirdboardForm {
         return axios[requestType](endpoint, data)
             .catch(this.onFail.bind(this))
             .then(this.onSuccess.bind(this));
-
-        // return axios.post(endpoint, this.data())
-        //     .catch(this.onFail.bind(this));
     }
 
     onSuccess(response) {

@@ -12,13 +12,6 @@ app.component('new-project-modal', NewProjectModal);
 import EditProjectModal from './components/EditProjectModal.vue';
 app.component('edit-project-modal', EditProjectModal);
 
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../../tailwind.config.js';
-
-const fullConfig = resolveConfig(tailwindConfig);
-
-// import pageBackground from '../sass/_variables.scss';
-
 app.mount('#app');
 
 app.config.globalProperties.window = window

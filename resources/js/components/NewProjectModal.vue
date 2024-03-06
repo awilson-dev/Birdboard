@@ -72,15 +72,11 @@ export default {
                     { body: '' }
                 ]
             })
-
-            // errors: {}
         };
     },
 
     methods: {
         addTask() {
-            // this.form.tasks.push({ body: '' });
-
             for (let i = 0; i < this.form.tasks.length; i++) {
                 if (!this.form.tasks[i].body) {
                     return;
@@ -94,15 +90,6 @@ export default {
             if (!submitting) {
                 submitting = true;
 
-                // for (let i = this.form.tasks.length - 1; i >= 0; i--) {
-                //     if (!this.form.tasks[i].body) {
-                //         this.form.tasks.splice(i, 1);
-                //     }
-                // }
-
-                // this.form.submit('/projects')
-                //     .then(response => location = response.data.message);
-
                 this.form.post('/projects')
                     .catch(error => {
                         submitting = false;
@@ -110,16 +97,6 @@ export default {
                     .then(response => {
                         location = response.data.message;
                     });
-
-                // try {
-                //     submitted = true;
-
-                //     let response = await axios.post('/projects', this.form);
-
-                //     location = response.data.message;
-                // } catch (error) {
-                //     this.errors = error.response.data.errors;
-                // }
             }
         }
     }
